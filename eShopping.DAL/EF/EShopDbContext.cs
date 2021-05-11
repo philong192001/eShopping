@@ -1,5 +1,6 @@
 ﻿using eShopping.DAL.Configurations;
 using eShopping.DAL.Entities;
+using eShopping.DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace eShopping.DAL.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Configuration using Fluent API
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
@@ -31,6 +33,9 @@ namespace eShopping.DAL.EF
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
             //base.OnModelCreating(modelBuilder);
+
+            //Data Seeding
+            modelBuilder.Seed();
         }
 
         public DbSet<Product> Products { get; set; }
