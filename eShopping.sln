@@ -3,16 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopping", "eShopping\eShopping.csproj", "{080822F6-B856-4405-926A-EB9283A3A444}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopping", "eShopping\eShopping.csproj", "{080822F6-B856-4405-926A-EB9283A3A444}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solutions Items", "{BDBFA4D0-7BC0-45B6-8535-895981483F71}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopping.DAL", "eShopping.DAL\eShopping.DAL.csproj", "{43CB7FA2-2C5A-452D-A241-10FF0299B01E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopping.DAL", "eShopping.DAL\eShopping.DAL.csproj", "{43CB7FA2-2C5A-452D-A241-10FF0299B01E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopping.BLL", "eShopping.BLL\eShopping.BLL.csproj", "{5C8AD86D-F8E2-4FF9-B336-5B66DDC77150}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopping.BLL", "eShopping.BLL\eShopping.BLL.csproj", "{5C8AD86D-F8E2-4FF9-B336-5B66DDC77150}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopping.Ultilities", "eShopping.Ultilities\eShopping.Ultilities.csproj", "{E8D49E1D-0135-4F06-9609-2FBDA3BA72FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopping.ViewModels", "eShopping.ViewModels\eShopping.ViewModels.csproj", "{46A60EFF-D413-463B-8C86-B3CC39B0AFAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{5C8AD86D-F8E2-4FF9-B336-5B66DDC77150}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C8AD86D-F8E2-4FF9-B336-5B66DDC77150}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C8AD86D-F8E2-4FF9-B336-5B66DDC77150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8D49E1D-0135-4F06-9609-2FBDA3BA72FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8D49E1D-0135-4F06-9609-2FBDA3BA72FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8D49E1D-0135-4F06-9609-2FBDA3BA72FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8D49E1D-0135-4F06-9609-2FBDA3BA72FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46A60EFF-D413-463B-8C86-B3CC39B0AFAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46A60EFF-D413-463B-8C86-B3CC39B0AFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46A60EFF-D413-463B-8C86-B3CC39B0AFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46A60EFF-D413-463B-8C86-B3CC39B0AFAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

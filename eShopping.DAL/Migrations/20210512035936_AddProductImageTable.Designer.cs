@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopping.DAL.EF;
 
 namespace eShopping.DAL.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    partial class EShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210512035936_AddProductImageTable")]
+    partial class AddProductImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +182,7 @@ namespace eShopping.DAL.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "9d4fc455-7249-47b9-a234-b6287a3250b7",
+                            ConcurrencyStamp = "8241c86d-231a-40f1-86c0-a078cd6b54d2",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +259,7 @@ namespace eShopping.DAL.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "755422f4-f470-4d0e-a93f-ec62d3cd1743",
+                            ConcurrencyStamp = "9c524b01-4c96-42e1-bc0d-d302abf13e33",
                             Dob = new DateTime(2001, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "longgne@gmail.com",
                             EmailConfirmed = true,
@@ -266,7 +268,7 @@ namespace eShopping.DAL.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "longgne@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHql2F7r2Lsqh+YMTVEoK7Z4ADTzwYQtHvSYZOdfmEvN65mpRizLlUcUnve5KgswEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIJBh/w4wWF1memdQL37QHN3SdapGxY5M/dsV8eZ42qWkYQgZ08cL/iygRVf2nibBw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -616,7 +618,7 @@ namespace eShopping.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 5, 13, 10, 26, 42, 493, DateTimeKind.Local).AddTicks(4212),
+                            DateCreated = new DateTime(2021, 5, 12, 10, 59, 35, 924, DateTimeKind.Local).AddTicks(463),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -640,8 +642,8 @@ namespace eShopping.DAL.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("FileSize")
-                        .HasColumnType("bigint");
+                    b.Property<int>("FileSize")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
