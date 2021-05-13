@@ -1,6 +1,6 @@
 ﻿
+using eShopping.ViewModels.Catalog;
 using eShopping.ViewModels.Catalog.Products;
-using eShopping.ViewModels.Catalog.Products.Manage;
 using eShopping.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -26,7 +26,7 @@ namespace eShopping.BLL.Catalog.Products
 
         Task<List<ProductViewModel>>  GetAll();
 
-        Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
+        Task<PageResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
 
         Task<int> AddImages(int productId, List<IFormFile> files);
 

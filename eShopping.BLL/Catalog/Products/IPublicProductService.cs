@@ -1,5 +1,4 @@
 ﻿using eShopping.ViewModels.Catalog.Products;
-using eShopping.ViewModels.Catalog.Products.Public;
 using eShopping.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,8 @@ namespace eShopping.BLL.Catalog.Products
 {
     public interface IPublicProductService
     {
-       Task<PageResult<ProductViewModel>> GetAllByCategoryId(GetProductPagingRequest request);
+       Task<PageResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request);
+
+        Task<List<ProductViewModel>> GetAll();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using eShopping.DAL.EF;
 using eShopping.ViewModels.Catalog.Products;
-using eShopping.ViewModels.Catalog.Products.Public;
 using eShopping.ViewModels.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +16,7 @@ namespace eShopping.BLL.Catalog.Products
         {
             _eShopDbContext = context;
         }
-        public async Task<PageResult<ProductViewModel>> GetAllByCategoryId(GetProductPagingRequest request)
+        public async Task<PageResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request)
         {
             //1.Select join
             var query = from p in _eShopDbContext.Products
@@ -60,6 +59,34 @@ namespace eShopping.BLL.Catalog.Products
                 Items = data
             };
             return pagedResult;
+        }
+
+        public async Task<List<ProductViewModel>> GetAll()
+        {
+            var query = from p in _eShopDbContext.Products
+                        join pt in _eShopDbContext.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _eShopDbContext.ProductInCategories on p.Id equals pic.ProductId
+                        join c in _eShopDbContext.Categories on pic.CategoryId equals c.Id
+                        select new { p, pt, pic };
+
+            var data = await query.Select(x => new ProductViewModel()
+            {
+                Id = x.p.Id,
+                Name = x.pt.Name,
+                DateCreated = x.p.DateCreated,
+                Description = x.pt.Description,
+                Details = x.pt.Details,
+                LanguageId = x.pt.LanguageId,
+                OriginalPrice = x.p.OriginalPrice,
+                Price = x.p.Price,
+                SeoAlias = x.pt.SeoAlias,
+                SeoDescription = x.pt.SeoDescription,
+                SeoTitle = x.pt.SeoTitle,
+                Stock = x.p.Stock,
+                ViewCount = x.p.ViewCount
+            }).ToListAsync();
+
+            return data;
         }
     }
 }

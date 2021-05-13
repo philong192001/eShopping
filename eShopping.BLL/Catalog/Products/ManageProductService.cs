@@ -2,8 +2,8 @@
 using eShopping.DAL.EF;
 using eShopping.DAL.Entities;
 using eShopping.Ultilities.Exceptions;
+using eShopping.ViewModels.Catalog;
 using eShopping.ViewModels.Catalog.Products;
-using eShopping.ViewModels.Catalog.Products.Manage;
 using eShopping.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -111,7 +111,7 @@ namespace eShopping.BLL.Catalog.Products
             throw new NotImplementedException();
         }
 
-        public async Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PageResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
         {
             //1.Select join
             var query = from p in _eShopDbContext.Products
@@ -160,12 +160,7 @@ namespace eShopping.BLL.Catalog.Products
             return pagedResult;
         }
 
-        public Task<PageResult<ProductViewModel>> GetAllPaging(ViewModels.Catalog.Products.Public.GetProductPagingRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ViewModels.Catalog.Products.Public.ProductImageViewModel>> GetListImage(int productId)
+        public Task<List<ProductImageViewModel>> GetListImage(int productId)
         {
             throw new NotImplementedException();
         }
