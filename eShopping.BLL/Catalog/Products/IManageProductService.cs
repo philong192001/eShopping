@@ -18,13 +18,15 @@ namespace eShopping.BLL.Catalog.Products
 
         Task<int> Delete(int productId);
 
+        Task<ProductViewModel> GetById(int productId, string languageId);
+
         Task<bool> UpdatePrice(int productId, decimal newPrice);
 
         Task<bool> UpdateStock(int productId,int addedQuantity);
 
         Task AddViewCount(int productId);
 
-        Task<List<ProductViewModel>>  GetAll();
+        //Task<List<ProductViewModel>>  GetAll();
 
         Task<PageResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
 

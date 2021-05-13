@@ -2,20 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eShopping.BLL.Catalog.Products;
-using eShopping.BLL.Common;
-using eShopping.DAL.EF;
-using eShopping.Ultilities.Contants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
-namespace eShopping.BackendApi
+namespace eShopping.WebApp
 {
     public class Startup
     {
@@ -29,23 +23,7 @@ namespace eShopping.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EShopDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(SystemConstans.MainConnectionString))
-            );
-
-            //Declare DI
-            services.AddTransient<IStorageService, FileStorageService>();
-            services.AddTransient<IPublicProductService, PublicProductService>();
-            services.AddTransient<IManageProductService, ManageProductService>();
-
-
             services.AddControllersWithViews();
-
-            //add Swagger
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger eShopping" ,Version = "v1"});
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,13 +45,6 @@ namespace eShopping.BackendApi
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopping by Nong ");
-                });
 
             app.UseEndpoints(endpoints =>
             {
