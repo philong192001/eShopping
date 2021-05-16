@@ -1,5 +1,6 @@
 ﻿
 using eShopping.ViewModels.Catalog;
+using eShopping.ViewModels.Catalog.ProductImages;
 using eShopping.ViewModels.Catalog.Products;
 using eShopping.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
@@ -30,12 +31,14 @@ namespace eShopping.BLL.Catalog.Products
 
         Task<PageResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
 
-        Task<int> AddImages(int productId, List<IFormFile> files);
+        Task<int> AddImage(int productId, ProductImageCreateRequest request);
 
-        Task<int> RemoveImages(int ImageId);
+        Task<int> RemoveImage(int ImageId);
 
-        Task<int> UpdateImages(int ImageId, string caption, bool isDefault);
+        Task<int> UpdateImage(int ImageId, ProductImageUpdateRequest request);
 
-        Task<List<ProductImageViewModel>> GetListImage(int productId);
+        Task<List<ProductImageViewModel>> GetListImages(int productId);
+
+        Task<ProductImageViewModel> GetImageById(int imageId);
     }
 }
