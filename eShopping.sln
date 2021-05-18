@@ -24,7 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Domain", "2.Domain", "{CC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Hosts", "3.Hosts", "{63A10895-1E97-4968-83A4-44877986B2C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopping.WebApp", "eShopping.WebApp\eShopping.WebApp.csproj", "{B17104F9-A787-4E23-92F1-049C6ACAC0E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopping.WebApp", "eShopping.WebApp\eShopping.WebApp.csproj", "{B17104F9-A787-4E23-92F1-049C6ACAC0E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopping.AdminApp", "eShopping.AdminApp\eShopping.AdminApp.csproj", "{5617E51A-99D6-42C6-870A-2E269D5D34A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{B17104F9-A787-4E23-92F1-049C6ACAC0E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B17104F9-A787-4E23-92F1-049C6ACAC0E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B17104F9-A787-4E23-92F1-049C6ACAC0E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5617E51A-99D6-42C6-870A-2E269D5D34A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5617E51A-99D6-42C6-870A-2E269D5D34A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5617E51A-99D6-42C6-870A-2E269D5D34A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5617E51A-99D6-42C6-870A-2E269D5D34A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{46A60EFF-D413-463B-8C86-B3CC39B0AFAC} = {7A9ECE55-96E0-46BB-A32D-E52D0B992CDB}
 		{A2106535-216C-4639-8EBC-EE6671A4375C} = {63A10895-1E97-4968-83A4-44877986B2C8}
 		{B17104F9-A787-4E23-92F1-049C6ACAC0E0} = {63A10895-1E97-4968-83A4-44877986B2C8}
+		{5617E51A-99D6-42C6-870A-2E269D5D34A5} = {63A10895-1E97-4968-83A4-44877986B2C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {296D1E39-25B9-4A9A-8252-ED24E6F62859}
