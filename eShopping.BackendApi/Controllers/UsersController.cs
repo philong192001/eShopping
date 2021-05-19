@@ -31,11 +31,12 @@ namespace eShopping.BackendApi.Controllers
             var resultToken = await _userService.Authencate(request);
             if (string.IsNullOrEmpty(resultToken)){
                 return BadRequest("UserName or password is not correct");
-            };
+            }
+            
             return Ok( resultToken );
         }
 
-        [HttpPost("register")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -49,6 +50,13 @@ namespace eShopping.BackendApi.Controllers
                 return BadRequest("Register not unsuccesful");
             };
             return Ok();
+        }
+
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
+        {
+            var products = await _userService.GetUserPaging(request);
+            return Ok(products);
         }
     }
 }

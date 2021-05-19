@@ -9,6 +9,8 @@ using eShopping.AdminApp.Services;
 using eShopping.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
@@ -16,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace eShopping.AdminApp.Controllers
 {
+    
     public class UserController : Controller
     {
         private readonly IUserApiClient _userApiClient;
@@ -27,9 +30,18 @@ namespace eShopping.AdminApp.Controllers
             _userApiClient = userApiClient;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
         {
-            return View();
+            var session = HttpContext.Session.GetString("Token");
+            var request = new GetUserPagingRequest()
+            {
+                BearerToken = session,
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var data = await _userApiClient.GetUserPaging(request);
+            return View(data);
         }
 
         [HttpGet]
@@ -56,6 +68,8 @@ namespace eShopping.AdminApp.Controllers
                 IsPersistent = false
             };
 
+            HttpContext.Session.SetString("Token", token);
+
             await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,userPrincipal,authProperties
                 );
@@ -67,6 +81,7 @@ namespace eShopping.AdminApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("Token");
             return RedirectToAction("Login", "User");
         }
 

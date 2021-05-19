@@ -29,6 +29,7 @@ namespace eShopping.AdminApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+            services.AddSession();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {
                 options.LoginPath = "/User/Login";
@@ -37,6 +38,11 @@ namespace eShopping.AdminApp
 
             services.AddControllersWithViews()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
 
             services.AddTransient<IUserApiClient,UserApiClient>();
 
@@ -68,6 +74,7 @@ namespace eShopping.AdminApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
