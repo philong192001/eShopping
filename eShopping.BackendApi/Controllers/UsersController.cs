@@ -12,6 +12,7 @@ namespace eShopping.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -29,8 +30,8 @@ namespace eShopping.BackendApi.Controllers
                 return BadRequest(ModelState);
             }
             var resultToken = await _userService.Authencate(request);
-            if (string.IsNullOrEmpty(resultToken)){
-                return BadRequest("UserName or password is not correct");
+            if (string.IsNullOrEmpty(resultToken.ResultObj)){
+                return BadRequest(resultToken);
             }
             
             return Ok( resultToken );
@@ -45,11 +46,26 @@ namespace eShopping.BackendApi.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _userService.Register(request);
-            if (!result)
+            if (!result.IsSuccessed)
             {
-                return BadRequest("Register not unsuccesful");
+                return BadRequest(result);
             };
             return Ok();
+        }
+
+        //PUT: http://localhost/api/users/id
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Update(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         [HttpGet("paging")]
@@ -57,6 +73,13 @@ namespace eShopping.BackendApi.Controllers
         {
             var products = await _userService.GetUserPaging(request);
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetUserById(id);
+            return Ok(user);
         }
     }
 }

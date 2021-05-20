@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace eShopping.AdminApp.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
