@@ -47,6 +47,27 @@ namespace eShopping.AdminApp.Services
 
         }
 
+        public async Task<ApiResult<bool>> Delete(Guid id)
+        {
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var response = await client.DeleteAsync($"/api/users/{id}");
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(body);
+
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(body);
+
+            }
+        }
+
         public async Task<ApiResult<UserVm>> GetByID(Guid id)
         {
             var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
@@ -91,14 +112,13 @@ namespace eShopping.AdminApp.Services
 
             var response = await client.PostAsync($"/api/users",httpContent);
             var result = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(result);
-            }
-            else
-            {
-                return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(result);
-            }
+                if (response.IsSuccessStatusCode)
+                {
+                    return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(result);
+                }
+           
+            return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(result);
+            
         }
 
         public async Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequest request)

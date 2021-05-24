@@ -33,13 +33,17 @@ namespace eShopping.BLL.System.Users
         public async Task<ApiResult<string>> Authencate(LoginRequest request)
         {
             var user = await _userManage.FindByNameAsync(request.UserName);
+
             if (user == null)
-                return null;
+            {
+                return new ApiErrorResult<string>("Tài khoản không tồn tại");
+
+            }
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
             {
-                return null;
+                return new ApiErrorResult<string>("Tài khoản mật khẩu khoongg đúng");
             }
 
             var roles = _userManage.GetRolesAsync(user);
@@ -61,6 +65,28 @@ namespace eShopping.BLL.System.Users
                 signingCredentials: creds);
 
            return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
+        }
+
+        public async Task<ApiResult<bool>> Delete(Guid id)
+        {
+            var user = await _userManage.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiErrorResult<bool>("User does not exist");
+            }
+            else
+            {
+                var result = await _userManage.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return new ApiSuccessResult<bool>();
+                }
+                else
+                {
+                    return new ApiErrorResult<bool>("Delete User Failed");
+                }
+               
+            }
         }
 
         public async Task<ApiResult<UserVm>> GetUserById(Guid id)

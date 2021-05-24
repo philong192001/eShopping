@@ -50,7 +50,7 @@ namespace eShopping.BackendApi.Controllers
             {
                 return BadRequest(result);
             };
-            return Ok();
+            return Ok(result);
         }
 
         //PUT: http://localhost/api/users/id
@@ -80,6 +80,13 @@ namespace eShopping.BackendApi.Controllers
         {
             var user = await _userService.GetUserById(id);
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _userService.Delete(id);
+            return Ok(result);
         }
     }
 }

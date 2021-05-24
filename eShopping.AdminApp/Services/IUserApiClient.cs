@@ -19,5 +19,6 @@ namespace eShopping.AdminApp.Services
 
         Task<ApiResult<UserVm>> GetByID(Guid id);
 
+        Task<ApiResult<bool>> Delete(Guid id);
     }
 }

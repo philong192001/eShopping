@@ -19,6 +19,7 @@ namespace eShopping.BLL.System.Users
 
         Task<ApiResult<UserVm>> GetUserById(Guid id);
 
+        Task<ApiResult<bool>> Delete(Guid id);
 
     }
 }

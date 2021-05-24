@@ -30,7 +30,7 @@ namespace eShopping.AdminApp.Controllers
             _userApiClient = userApiClient;
         }
 
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 1)
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 5)
         {
 
             var request = new GetUserPagingRequest()
@@ -40,6 +40,12 @@ namespace eShopping.AdminApp.Controllers
                 PageSize = pageSize 
             };
             var data = await _userApiClient.GetUserPaging(request);
+
+            ViewBag.Keyword = keyword;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
             return View(data.ResultObj);
         }
 
@@ -59,6 +65,10 @@ namespace eShopping.AdminApp.Controllers
             else
             {
                 var result = await _userApiClient.RegisterUser(request);
+                if (result == null)
+                {
+                    return BadRequest("Error to register");
+                }
                 if (result.IsSuccessed)
                 {
                     return RedirectToAction("Index");
@@ -115,7 +125,7 @@ namespace eShopping.AdminApp.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Remove("Token");
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpGet]
@@ -123,6 +133,34 @@ namespace eShopping.AdminApp.Controllers
         {
             var result = await _userApiClient.GetByID(id);
             return View(result.ResultObj);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(Guid id)
+        {
+            return View(new UserDeleteRequest()
+            {
+                id = id
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(UserDeleteRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                var result = await _userApiClient.Delete(request.id);
+                if (result.IsSuccessed)
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError("", result.Message);
+            }
+            return View(request);
         }
 
     }
