@@ -30,7 +30,7 @@ namespace eShopping.AdminApp.Controllers
             _userApiClient = userApiClient;
         }
 
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 1)
         {
 
             var request = new GetUserPagingRequest()
@@ -118,6 +118,12 @@ namespace eShopping.AdminApp.Controllers
             return RedirectToAction("Login", "User");
         }
 
-       
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            var result = await _userApiClient.GetByID(id);
+            return View(result.ResultObj);
+        }
+
     }
 }

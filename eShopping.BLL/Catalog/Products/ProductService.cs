@@ -171,7 +171,9 @@ namespace eShopping.BLL.Catalog.Products
             //4.Select and projection
             var pagedResult = new PageResult<ProductViewModel>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
                 Items = data
             };
             return pagedResult;
@@ -379,7 +381,9 @@ namespace eShopping.BLL.Catalog.Products
             //4.Select and projection
             var pagedResult = new PageResult<ProductViewModel>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
                 Items = data
             };
             return pagedResult;

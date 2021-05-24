@@ -79,7 +79,8 @@ namespace eShopping.BLL.System.Users
                     LastName = user.LastName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
-                    Dob = user.Dob
+                    Dob = user.Dob,
+                    UserName = user.UserName
                 };
                 return new ApiSuccessResult<UserVm>(userVm);  
             }
@@ -110,7 +111,9 @@ namespace eShopping.BLL.System.Users
             //4.Select and projection
             var pagedResult = new PageResult<UserVm>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
                 Items = data
             };
 
