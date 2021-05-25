@@ -71,6 +71,7 @@ namespace eShopping.AdminApp.Controllers
                 }
                 if (result.IsSuccessed)
                 {
+                    TempData["result"] = "create new user success";
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", result.Message);
@@ -113,6 +114,7 @@ namespace eShopping.AdminApp.Controllers
                 var result = await _userApiClient.UpdateUser(request.Id,request);
                 if (result.IsSuccessed)
                 {
+                    TempData["result"] = "update user success";
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", result.Message);
@@ -156,6 +158,7 @@ namespace eShopping.AdminApp.Controllers
                 var result = await _userApiClient.Delete(request.id);
                 if (result.IsSuccessed)
                 {
+                    TempData["result"] = "delete user success";
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", result.Message);
