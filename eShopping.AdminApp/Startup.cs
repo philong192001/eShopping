@@ -49,6 +49,8 @@ namespace eShopping.AdminApp
 
             services.AddTransient<IUserApiClient,UserApiClient>();
 
+            services.AddTransient<IRoleApiClient, RoleApiClient>();
+
             IMvcBuilder builder = services.AddRazorPages();
 
             var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

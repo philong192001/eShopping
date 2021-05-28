@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using eShopping.BLL.Catalog.Products;
 using eShopping.BLL.Common;
+using eShopping.BLL.System.Roles;
 using eShopping.BLL.System.Users;
 using eShopping.DAL.EF;
 using eShopping.DAL.Entities;
@@ -44,6 +45,7 @@ namespace eShopping.BackendApi
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddTransient<IUserService,UserService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();

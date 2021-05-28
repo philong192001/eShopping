@@ -13,5 +13,6 @@ namespace eShopping.ViewModels.System.Users
         public string UserName { get; set; }
         public string Email { get; set; }
         public DateTime Dob { get; set; }
+        public IList<string> Roles { get; set; } 
     }
 }
