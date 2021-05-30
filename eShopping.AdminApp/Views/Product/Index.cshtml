@@ -27,8 +27,13 @@
                 <div class="col-md-6 col-xs-12">
                     <form asp-action="Index" method="get">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <select name="categoryId" onchange="this.form.submit()" asp-items="@ViewBag.Categories" class="form-control">
+                                    <option>--Chóose category---</option>
+                                </select>
                             </div>
                             <div class="cold-md-4">
                                 <button type="submit" class="btn btn-primary">Search</button>
@@ -93,9 +98,10 @@
                                 </td>
 
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    @Html.ActionLink("Category Assign", "CategoryAssign", new { id = item.Id })
                                 </td>
                             </tr>
                         }

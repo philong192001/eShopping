@@ -43,5 +43,7 @@ namespace eShopping.BLL.Catalog.Products
 
         Task<PageResult<ProductVm>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request);
 
+        Task<ApiResult<bool>> CategoryAssign(int id, CategoryAssignRequest request);
+
     }
 }

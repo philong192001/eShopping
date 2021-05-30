@@ -129,19 +129,21 @@ namespace eShopping.BLL.Catalog.Products
             //1.Select join
             var query = from p in _eShopDbContext.Products
                         join pt in _eShopDbContext.ProductTranslations on p.Id equals pt.ProductId
-                        //join pic in _eShopDbContext.ProductInCategories on p.Id equals pic.ProductId
-                        //join c in _eShopDbContext.Categories on pic.CategoryId equals c.Id
+                        join pic in _eShopDbContext.ProductInCategories on p.Id equals pic.ProductId into ppic
+                        from pic in ppic.DefaultIfEmpty()
+                        join c in _eShopDbContext.Categories on pic.CategoryId equals c.Id into picc
+                        from c  in picc.DefaultIfEmpty()
                         where pt.LanguageId == request.LanguageId
-                        select new { p, pt };
-            //2.Filterr
+                        select new { p, pt,pic };
+            //2.Filterr 
             if (!String.IsNullOrEmpty(request.Keyword))
             {
                 query = query.Where(x => x.pt.Name.Contains(request.Keyword));
             }
-            //if (request.CategoryIds != null && request.CategoryIds.Count > 0)
-            //{
-            //    query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryId));
-            //}
+            if (request.CategoryId != null && request.CategoryId !=  0)
+            {
+                query = query.Where(p => p.pic.CategoryId == request.CategoryId);
+            }
             //3.Paging
             int totalRow = await query.CountAsync();
 
@@ -181,6 +183,12 @@ namespace eShopping.BLL.Catalog.Products
             var productTranslation = await _eShopDbContext.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == productId
             && x.LanguageId == languageId);
 
+            var categories = await (from c in _eShopDbContext.Categories
+                                    join ct in _eShopDbContext.CategoryTranslations on c.Id equals ct.CategoryId
+                                    join pic in _eShopDbContext.ProductInCategories on c.Id equals pic.CategoryId
+                                    where pic.ProductId == productId && ct.LanguageId == languageId
+                                    select ct.Name).ToListAsync();
+
             var productViewModel = new ProductVm()
             {
                 Id = product.Id,
@@ -195,7 +203,8 @@ namespace eShopping.BLL.Catalog.Products
                 SeoDescription = productTranslation != null ? productTranslation.SeoDescription : null,
                 SeoTitle = productTranslation != null ? productTranslation.SeoTitle : null,
                 Stock = product.Stock,
-                ViewCount = product.ViewCount
+                ViewCount = product.ViewCount,
+                Categories = categories
             };
             return productViewModel;
         }
@@ -383,6 +392,35 @@ namespace eShopping.BLL.Catalog.Products
                 Items = data
             };
             return pagedResult;
+        }
+
+        public async Task<ApiResult<bool>> CategoryAssign(int id, CategoryAssignRequest request)
+        {
+            var user = await _eShopDbContext.Products.FindAsync(id);
+            if (user == null)
+            {
+                return new ApiErrorResult<bool>($"Sản phẩm với id {id} không tồn tại");
+            }
+            foreach (var category in request.Categories)
+            {
+                var productInCategory = await _eShopDbContext.ProductInCategories
+                    .FirstOrDefaultAsync(x => x.CategoryId == int.Parse(category.Id)
+                    && x.ProductId == id);
+                if (productInCategory != null && category.Selected == false)
+                {
+                    _eShopDbContext.ProductInCategories.Remove(productInCategory);
+                }
+                else if (productInCategory == null && category.Selected)
+                {
+                    await _eShopDbContext.ProductInCategories.AddAsync(new ProductInCategory()
+                    {
+                        CategoryId = int.Parse(category.Id),
+                        ProductId = id
+                    });
+                }
+            }
+            await _eShopDbContext.SaveChangesAsync();
+            return new ApiSuccessResult<bool>();
         }
     }
 }

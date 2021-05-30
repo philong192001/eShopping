@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using eShopping.BLL.Catalog.Categories;
 using eShopping.BLL.Catalog.Products;
 using eShopping.BLL.Common;
 using eShopping.BLL.System.Languages;
@@ -48,6 +49,7 @@ namespace eShopping.BackendApi
             services.AddTransient<ILanguageService,LanguageService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
