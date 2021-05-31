@@ -180,7 +180,7 @@ namespace eShopping.DAL.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "9d4fc455-7249-47b9-a234-b6287a3250b7",
+                            ConcurrencyStamp = "54d59ef7-203d-46d4-843c-c354dbee5268",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +257,7 @@ namespace eShopping.DAL.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "755422f4-f470-4d0e-a93f-ec62d3cd1743",
+                            ConcurrencyStamp = "3976d459-ce5c-434d-87c1-bb6e5c7225fc",
                             Dob = new DateTime(2001, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "longgne@gmail.com",
                             EmailConfirmed = true,
@@ -266,7 +266,7 @@ namespace eShopping.DAL.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "longgne@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHql2F7r2Lsqh+YMTVEoK7Z4ADTzwYQtHvSYZOdfmEvN65mpRizLlUcUnve5KgswEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAKMJtHTsmgynK3a/ycRCiiFdRrxRaYqLoJRUY1qOykWv5dWeUNfA5sz8LwTtB9S9w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -402,7 +402,7 @@ namespace eShopping.DAL.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            LanguageId = "vi-VN",
+                            LanguageId = "vi",
                             Name = "Áo Nam",
                             SeoAlias = "ao-nam",
                             SeoDescription = "Sản phẩm áo thời trang nam",
@@ -412,7 +412,7 @@ namespace eShopping.DAL.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            LanguageId = "en-US",
+                            LanguageId = "en",
                             Name = "Men Shirt",
                             SeoAlias = "men-shirt",
                             SeoDescription = "The shirt products for men",
@@ -422,7 +422,7 @@ namespace eShopping.DAL.Migrations
                         {
                             Id = 3,
                             CategoryId = 2,
-                            LanguageId = "vi-VN",
+                            LanguageId = "vi",
                             Name = "Áo Nữ",
                             SeoAlias = "ao-nu",
                             SeoDescription = "Sản phẩm áo thời trang nữ",
@@ -432,7 +432,7 @@ namespace eShopping.DAL.Migrations
                         {
                             Id = 4,
                             CategoryId = 2,
-                            LanguageId = "en-US",
+                            LanguageId = "en",
                             Name = "Women Shirt",
                             SeoAlias = "women-shirt",
                             SeoDescription = "The shirt products for women",
@@ -498,13 +498,13 @@ namespace eShopping.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "vi-VN",
+                            Id = "vi",
                             IsDefault = true,
                             Name = "Tiếng Việt"
                         },
                         new
                         {
-                            Id = "en-US",
+                            Id = "en",
                             IsDefault = false,
                             Name = "English"
                         });
@@ -595,9 +595,6 @@ namespace eShopping.DAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("SeoAlias")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Stock")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -616,7 +613,7 @@ namespace eShopping.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 5, 13, 10, 26, 42, 493, DateTimeKind.Local).AddTicks(4212),
+                            DateCreated = new DateTime(2021, 5, 31, 15, 6, 38, 660, DateTimeKind.Local).AddTicks(4316),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -741,7 +738,7 @@ namespace eShopping.DAL.Migrations
                             Id = 1,
                             Description = "Áo Sơ Mi Nam Trắng Việt Tiệp",
                             Details = "Mô tả sản phẩm ",
-                            LanguageId = "vi-VN",
+                            LanguageId = "vi",
                             Name = "Áo Sơ Mi Nam Trắng Việt Tiệp",
                             ProductId = 1,
                             SeoAlias = "ao-so-mi-trang-viet-tiep",
@@ -753,7 +750,7 @@ namespace eShopping.DAL.Migrations
                             Id = 2,
                             Description = "Viet Tiep Men T-Shirt white",
                             Details = "Description of product",
-                            LanguageId = "en-US",
+                            LanguageId = "en",
                             Name = "Viet Tiep Men T-Shirt white",
                             ProductId = 1,
                             SeoAlias = "viet-tiep-men-tshirt",
