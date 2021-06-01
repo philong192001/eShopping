@@ -38,6 +38,7 @@ namespace eShopping.ViewModels.Catalog.Products
 
         //public Product Product { get; set; }
         //public Language Language { get; set; }
+        public bool? IsFeatured { get; set; }
 
         public IFormFile ThumbnailImage { get; set; }
     }
