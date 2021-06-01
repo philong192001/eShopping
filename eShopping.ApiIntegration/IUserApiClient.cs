@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopping.AdminApp.Services
+namespace eShopping.ApiIntegration
 {
     public interface IUserApiClient
     {

@@ -1,4 +1,5 @@
-﻿using eShopping.Ultilities.Contants;
+﻿using eShopping.ApiIntegration;
+using eShopping.Ultilities.Contants;
 using eShopping.ViewModels.Catalog.Products;
 using eShopping.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopping.AdminApp.Services
+namespace eShopping.ApiIntegration
 {
     public class ProductApiClient : BaseApiClient,IProductApiClient
     {

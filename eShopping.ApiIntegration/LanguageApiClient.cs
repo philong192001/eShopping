@@ -1,4 +1,5 @@
-﻿using eShopping.ViewModels.Common;
+﻿using eShopping.ApiIntegration;
+using eShopping.ViewModels.Common;
 using eShopping.ViewModels.System.Languages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace eShopping.AdminApp.Services
+namespace eShopping.ApiIntegration
 {
     public class LanguageApiClient : BaseApiClient,ILanguageApiClient
     {

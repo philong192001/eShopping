@@ -1,5 +1,5 @@
 ﻿using eShopping.AdminApp.Models;
-using eShopping.AdminApp.Services;
+using eShopping.ApiIntegration;
 using eShopping.Ultilities.Contants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

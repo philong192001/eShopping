@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using eShopping.AdminApp.Services;
+using eShopping.ApiIntegration;
 using eShopping.ViewModels.Common;
 using eShopping.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authentication;

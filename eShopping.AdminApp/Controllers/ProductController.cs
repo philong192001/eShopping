@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eShopping.AdminApp.Services;
+using eShopping.ApiIntegration;
 using eShopping.Ultilities.Contants;
 using eShopping.ViewModels.Catalog.Products;
 using eShopping.ViewModels.Common;
