@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eShopping.ApiIntegration\eShopping.ApiIntegration.csproj" />
+    <ProjectReference Include="..\eShopping.BLL\eShopping.BLL.csproj" />
   </ItemGroup>
 
 </Project>

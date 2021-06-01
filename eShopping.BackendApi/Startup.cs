@@ -5,6 +5,7 @@ using eShopping.BLL.Common;
 using eShopping.BLL.System.Languages;
 using eShopping.BLL.System.Roles;
 using eShopping.BLL.System.Users;
+using eShopping.BLL.Utilities.Slides;
 using eShopping.DAL.EF;
 using eShopping.DAL.Entities;
 using eShopping.Ultilities.Contants;
@@ -50,6 +51,7 @@ namespace eShopping.BackendApi
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ISlideService, SlideService>();
 
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();

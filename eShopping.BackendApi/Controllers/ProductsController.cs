@@ -188,5 +188,13 @@ namespace eShopping.BackendApi.Controllers
             }
             return Ok(result);
         }
+
+        [HttpGet("featured/{languageId}/{take}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetFeaturedProducts(int take, string languageId)
+        {
+            var products = await _productService.GetFeaturedProducts(languageId, take);
+            return Ok(products);
+        }
     }
 }
