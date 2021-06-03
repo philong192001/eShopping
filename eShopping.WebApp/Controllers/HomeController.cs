@@ -37,7 +37,8 @@ namespace eShopping.WebApp.Controllers
             var viewModel = new HomeVm
             {
                 Slides = await _slideApiClient.GetAll(),
-                FeaturedProducts = await _productApiClient.GetFeaturedProducts(culture, SystemConstans.ProductSettings.NumberOfFeaturedProducts)
+                FeaturedProducts = await _productApiClient.GetFeaturedProducts(culture, SystemConstans.ProductSettings.NumberOfFeaturedProducts),
+                 LatestProducts = await _productApiClient.GetLatestProducts(culture, SystemConstans.ProductSettings.NumberOfLatestProducts)
             };
 
             return View(viewModel);
