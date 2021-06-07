@@ -144,6 +144,9 @@
     <value>My Cart</value>
     <comment>/Home/Index - header top left</comment>
   </data>
+  <data name="products" xml:space="preserve">
+    <value>products</value>
+  </data>
   <data name="productUrl" xml:space="preserve">
     <value>products</value>
   </data>

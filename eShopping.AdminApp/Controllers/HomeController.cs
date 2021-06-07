@@ -44,7 +44,7 @@ namespace eShopping.AdminApp.Controllers
             HttpContext.Session.SetString(SystemConstans.AppSetting.DefaultLanguageId,
                 viewModel.CurrentLanguageId);
 
-            return RedirectToAction("Index");
+            return Redirect(viewModel.ReturnUrl);
         }
     }
 }

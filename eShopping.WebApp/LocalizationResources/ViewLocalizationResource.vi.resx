@@ -144,6 +144,9 @@
     <value>Giỏ hàng của tôi</value>
     <comment>/Home/Index - header top left</comment>
   </data>
+  <data name="products" xml:space="preserve">
+    <value>san-pham</value>
+  </data>
   <data name="productUrl" xml:space="preserve">
     <value>san-pham</value>
   </data>

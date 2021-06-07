@@ -20,5 +20,10 @@ namespace eShopping.Ultilities.Contants
             public const int NumberOfFeaturedProducts = 104;
             public const int NumberOfLatestProducts = 106;
         }
+
+        public class ProductConstants
+        {
+            public const string NA = "N/A";
+        }
     }
 }

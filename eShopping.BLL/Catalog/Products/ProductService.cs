@@ -1,6 +1,7 @@
 ﻿using eShopping.BLL.Common;
 using eShopping.DAL.EF;
 using eShopping.DAL.Entities;
+using eShopping.Ultilities.Contants;
 using eShopping.Ultilities.Exceptions;
 using eShopping.ViewModels.Catalog;
 using eShopping.ViewModels.Catalog.ProductImages;
@@ -22,6 +23,7 @@ namespace eShopping.BLL.Catalog.Products
     {
         private readonly EShopDbContext _eShopDbContext;
         private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
 
         public ProductService(EShopDbContext context, IStorageService storageService)
         {
@@ -60,16 +62,14 @@ namespace eShopping.BLL.Catalog.Products
 
         public async Task<int> Create(ProductCreateRequest request)
         {
-            var product = new Product()
+            var languages = _eShopDbContext.Languages;
+            var translations = new List<ProductTranslation>();
+
+            foreach (var language in languages)
             {
-                Price = request.Price,
-                OriginalPrice = request.OriginalPrice,
-                Stock = request.Stock,
-                ViewCount = 0,
-                DateCreated = DateTime.Now,
-                ProductTranslations = new List<ProductTranslation>()
+                if (language.Id == request.LanguageId)
                 {
-                    new ProductTranslation()
+                    translations.Add(new ProductTranslation()
                     {
                         Name = request.Name,
                         Description = request.Description,
@@ -78,9 +78,28 @@ namespace eShopping.BLL.Catalog.Products
                         SeoAlias = request.SeoAlias,
                         SeoTitle = request.SeoTitle,
                         LanguageId = request.LanguageId
-                    }
+                    });
                 }
+                else
+                {
+                    translations.Add(new ProductTranslation()
+                    {
+                        Name = SystemConstans.ProductConstants.NA,
+                        Description = SystemConstans.ProductConstants.NA,
+                        SeoAlias = SystemConstans.ProductConstants.NA,
+                        LanguageId = language.Id
+                    });
+                }
+            }
 
+            var product = new Product()
+            {
+                Price = request.Price,
+                OriginalPrice = request.OriginalPrice,
+                Stock = request.Stock,
+                ViewCount = 0,
+                DateCreated = DateTime.Now,
+                ProductTranslations = translations
             };
             //Save image
             if (request.ThumbnailImage != null)
@@ -122,7 +141,7 @@ namespace eShopping.BLL.Catalog.Products
             }
             return await _eShopDbContext.SaveChangesAsync();
         }
-    
+
 
         public async Task<PageResult<ProductVm>> GetAllPaging(GetManageProductPagingRequest request)
         {
@@ -132,15 +151,17 @@ namespace eShopping.BLL.Catalog.Products
                         join pic in _eShopDbContext.ProductInCategories on p.Id equals pic.ProductId into ppic
                         from pic in ppic.DefaultIfEmpty()
                         join c in _eShopDbContext.Categories on pic.CategoryId equals c.Id into picc
-                        from c  in picc.DefaultIfEmpty()
-                        where pt.LanguageId == request.LanguageId
-                        select new { p, pt,pic };
+                        from c in picc.DefaultIfEmpty()
+                        join pi in _eShopDbContext.ProductImages on p.Id equals pi.ProductId into ppi
+                        from pi in ppi.DefaultIfEmpty()
+                        where pt.LanguageId == request.LanguageId && pi.IsDefault == true
+                        select new { p, pt, pic, pi };
             //2.Filterr 
             if (!String.IsNullOrEmpty(request.Keyword))
             {
                 query = query.Where(x => x.pt.Name.Contains(request.Keyword));
             }
-            if (request.CategoryId != null && request.CategoryId !=  0)
+            if (request.CategoryId != null && request.CategoryId != 0)
             {
                 query = query.Where(p => p.pic.CategoryId == request.CategoryId);
             }
@@ -163,7 +184,8 @@ namespace eShopping.BLL.Catalog.Products
                     SeoDescription = x.pt.SeoDescription,
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
-                    ViewCount = x.p.ViewCount
+                    ViewCount = x.p.ViewCount,
+                    ThumbnailImage = x.pi.ImagePath
                 }).ToListAsync();
 
             //4.Select and projection
@@ -189,6 +211,8 @@ namespace eShopping.BLL.Catalog.Products
                                     where pic.ProductId == productId && ct.LanguageId == languageId
                                     select ct.Name).ToListAsync();
 
+            var image = await _eShopDbContext.ProductImages.Where(x => x.ProductId == productId && x.IsDefault == true).FirstOrDefaultAsync();
+
             var productViewModel = new ProductVm()
             {
                 Id = product.Id,
@@ -204,18 +228,19 @@ namespace eShopping.BLL.Catalog.Products
                 SeoTitle = productTranslation != null ? productTranslation.SeoTitle : null,
                 Stock = product.Stock,
                 ViewCount = product.ViewCount,
-                Categories = categories
+                Categories = categories,
+                ThumbnailImage = image != null ? image.ImagePath : "no-image.jpg"
             };
             return productViewModel;
         }
 
         public async Task<ProductImageViewModel> GetImageById(int imageId)
         {
-           var image = await _eShopDbContext.ProductImages.FindAsync(imageId);
-           if(image == null)
-           {
+            var image = await _eShopDbContext.ProductImages.FindAsync(imageId);
+            if (image == null)
+            {
                 throw new EShopException($"Cannot find an image with id {imageId}");
-           }
+            }
             var viewModel = new ProductImageViewModel()
             {
                 Caption = image.Caption,
@@ -245,7 +270,7 @@ namespace eShopping.BLL.Catalog.Products
             }).ToListAsync();
         }
 
-        public async Task<int> RemoveImage( int ImageId)
+        public async Task<int> RemoveImage(int ImageId)
         {
             var productImage = await _eShopDbContext.ProductImages.FindAsync(ImageId);
             if (productImage == null)
@@ -336,14 +361,12 @@ namespace eShopping.BLL.Catalog.Products
             }
         }
 
-       
-
         private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
-            return fileName;
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         public async Task<PageResult<ProductVm>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request)
