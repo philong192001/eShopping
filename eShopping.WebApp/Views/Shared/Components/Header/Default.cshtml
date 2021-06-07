@@ -56,7 +56,28 @@
                                 <li class="hidden-xs"><a asp-route-culture="@culture" localize-content>Wishlist</a></li>
                                 <li class="hidden-xs"><a asp-route-culture="@culture" localize-content>My Cart</a></li>
                                 <li class="hidden-xs"><a asp-route-culture="@culture" localize-content>Checkout</a></li>
-                                <li><a asp-route-culture="@culture" localize-content data-toggle="modal" data-target="#login-modal">Login</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>
+                                        Welcome!<strong> @User.Identity.Name</strong>
+                                    </li>
+                                    <li>
+                                        <form action="/@culture/Account/Logout" method="post">
+                                            <button type="submit" style="padding-right:0;margin-top:10px;margin-bottom:0px;background:transparent;border:none;">
+                                                <span><localize>Logout</localize></span>
+                                            </button>
+                                        </form>
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/@culture/Account/Login" style="padding-right:0">
+                                            <span class="btn btn-large btn-success"><localize>Login</localize></span>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
