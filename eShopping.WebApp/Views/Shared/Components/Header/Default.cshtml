@@ -58,10 +58,10 @@
                                 <li class="hidden-xs"><a asp-route-culture="@culture" localize-content>Checkout</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li>
-                                        Welcome!<strong> @User.Identity.Name</strong>
+                                    <li class="hidden-xs">
+                                        Welcome<strong> @User.Identity.Name</strong>
                                     </li>
-                                    <li>
+                                    <li class="hidden-xs">
                                         <form action="/@culture/Account/Logout" method="post">
                                             <button type="submit" style="padding-right:0;margin-top:10px;margin-bottom:0px;background:transparent;border:none;">
                                                 <span><localize>Logout</localize></span>
@@ -72,9 +72,9 @@
                                 }
                                 else
                                 {
-                                    <li>
+                                    <li class="hidden-xs">
                                         <a href="/@culture/Account/Login" style="padding-right:0">
-                                            <span class="btn btn-large btn-success"><localize>Login</localize></span>
+                                            <span><localize>Login</localize></span>
                                         </a>
                                     </li>
                                 }

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using eShopping.ApiIntegration;
 using eShopping.BLL.Utilities.Slides;
+using eShopping.ViewModels.System.Users;
 using eShopping.WebApp.LocalizationResources;
+using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +40,9 @@ namespace eShopping.WebApp
                 new CultureInfo("en"),
                 new CultureInfo("vi"),
             };
-            services.AddControllersWithViews().AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
+            services.AddControllersWithViews()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>())
+                .AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
             {
                 // When using all the culture providers, the localization process will
                 // check all available culture providers in order to detect the request culture.

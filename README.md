@@ -1,10 +1,10 @@
-#ASP.NET CORE 3.1 BY NONG
+# ASP.NET CORE 3.1 BY NONG
 
-##Technology 
+## Technology 
 - ASP.NET CORE 3.1
 - ENTITY FRAMEWORK CORE 3.1
 
-##Install Packge
+## Install Packge
 - Microsoft.EntityFrameworkCore.SqlServer
 - Microsoft.EntityFrameworkCore.Tools
 - Microsoft.EntityFrameworkCore.Design
