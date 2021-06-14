@@ -1,6 +1,7 @@
 ﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
 }
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +47,8 @@
 
 </head>
 <body>
+    <input type="hidden" id="hidCulture" value="@culture" />
+    <input type="hidden" id="hidBaseAddress" value="@Configuration["BaseAddress"]" />
     <!-- wpf loader Two -->
     <div id="wpf-loader-two">
         <div class="wpf-loader-two-inner">
@@ -61,7 +64,24 @@
     <!-- / header section -->
 
     @RenderBody()
-
+    <!-- Subscribe section -->
+    <section id="aa-subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="aa-subscribe-area">
+                        <h3>Subscribe our newsletter </h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
+                        <form action="" class="aa-subscribe-form">
+                            <input type="email" name="" id="" placeholder="Enter your Email">
+                            <input type="submit" value="Subscribe">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / Subscribe section -->
     <!-- footer -->
     <footer id="aa-footer">
         <!-- footer bottom -->
@@ -179,24 +199,6 @@
         </div><!-- /.modal-dialog -->
     </div>
 
-    <!-- Subscribe section -->
-    <section id="aa-subscribe">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aa-subscribe-area">
-                        <h3>Subscribe our newsletter </h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
-                        <form action="" class="aa-subscribe-form">
-                            <input type="email" name="" id="" placeholder="Enter your Email">
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- / Subscribe section -->
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -218,6 +220,12 @@
     <script type="text/javascript" src="/js/nouislider.js"></script>
     <!-- Custom js -->
     <script src="/js/custom.js"></script>
-
+    @*Site JS*@
+    <script src="/js/site.js"></script>
+    <script>
+        var site = new SiteController();
+        site.initialize();
+    </script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

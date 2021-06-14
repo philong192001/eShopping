@@ -3,6 +3,13 @@
 @{
     var culture = CultureInfo.CurrentCulture.Name;
 }
+@section scripts{
+    <script src="~/js/cart.js"></script>
+    <script>
+        var site = new SiteController();
+        site.initialize();
+    </script>
+}
 <header id="aa-header">
     <!-- start header top  -->
     <div class="aa-header-top">
@@ -105,10 +112,10 @@
                         <!-- / logo  -->
                         <!-- cart box -->
                         <div class="aa-cartbox">
-                            <a class="aa-cart-link" href="#">
+                            <a class="aa-cart-link" href="/@culture/cart">
                                 <span class="fa fa-shopping-basket"></span>
                                 <span class="aa-cart-title">SHOPPING CART</span>
-                                <span class="aa-cart-notify">2</span>
+                                <span class="aa-cart-notify">[<span id="lbl_number_items_header">0</span>]</span>
                             </a>
                             <div class="aa-cartbox-summary">
                                 <ul>

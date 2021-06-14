@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script src="~/js/cart.js"></script>
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+    </script>
+}
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<!-- catg header banner section -->
+<section id="aa-catg-head-banner">
+    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <div class="aa-catg-head-banner-area">
+        <div class="container">
+            <div class="aa-catg-head-banner-content">
+                <h2>Cart Page</h2>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Cart</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / catg header banner section -->
+<!-- Cart view section -->
+<h3> SHOPPING CART [<small><span id="lbl_number_of_items">0</span> Item(s) </small>]</h3>
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tbl_cart">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Description</th>
+                                            <th>Quantity/Update</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cart_body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        <!-- Cart Total view -->
+                        <div class="cart-view-total">
+                            <h4>Cart Totals</h4>
+                            <table class="aa-totals-table">
+                                <tbody>
+                                    <tr>
+                                        <th>Subtotal</th>
+                                        <td>$450</td>
+                                    </tr>
+                                    <tr>
+                                        <th><strong>Total</strong></th>
+                                        <td><strong> <span id="lbl_total"></span> </strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="/@culture/Cart/Checkout" class="aa-cart-view-btn">Proced to Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Cart view section -->
